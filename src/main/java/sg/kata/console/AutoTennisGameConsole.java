@@ -20,4 +20,9 @@ public class AutoTennisGameConsole extends TennisGameConsole {
         ((AutoTennisGame)game).playASet();
     }
 
+    public void playAMatch(){
+        game.checkMatchIsStarted();
+        ((AutoTennisGame)game).playAMatch();
+    }
+
 }

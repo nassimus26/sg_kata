@@ -20,4 +20,17 @@ public class AutoGameTest {
 
         Assert.assertEquals(gameConsole.getSetWinnerScore(), 40);
     }
+    @Test
+    public void testAutoPlayAMatch(){// print an automatic play log
+        AutoTennisGameConsole gameConsole = new AutoTennisGameConsole();
+        gameConsole.joinTheGame(DefaultTestingData.newPlayer1());
+        gameConsole.joinTheGame(DefaultTestingData.newPlayer2());
+        gameConsole.startTheMatch();
+        gameConsole.playAMatch();
+        Assert.assertNotNull(gameConsole.getMatchWinner());
+
+        Assert.assertTrue(gameConsole.getMatchWinnerScore()-gameConsole.getMatchLooserScore()>=2);
+        Assert.assertTrue(gameConsole.getMatchWinnerScore()>=6);
+    }
+
 }

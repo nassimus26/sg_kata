@@ -2,11 +2,11 @@ package sg.kata.game;
 
 import sg.kata.console.State;
 import sg.kata.exception.SetNotStartedOrAlreadyTerminatedException;
-import sg.kata.model.GameScore;
+import sg.kata.model.*;
+import sg.kata.score.SetScoreExecutor;
 import sg.kata.score.GameScoreExecutor;
+import sg.kata.score.byindex.SetScoreByPlayerIndex;
 import sg.kata.score.byindex.GameScoreByPlayerIndex;
-import sg.kata.model.Game;
-import sg.kata.model.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,30 +20,40 @@ public class TennisGame {
     private Game model;
     private AutoPlayer pointWinner;
     private AutoPlayer setWinner;
+    private AutoPlayer matchWinner;
 
     private GameScoreExecutor gameScoreExecutor;
+    private SetScoreExecutor setScoreExecutor;
     private Map<Player, AutoPlayer> playersMap;//keep the order the same with the Game sg.kata.model
 
     private State pointState = State.Default;
     private State gameState = State.Default;
     private State setState = State.Default;
+    private State matchState = State.Default;
 
     public GameScore getGameScore(){
         return (GameScore) gameScoreExecutor.getScore();
+    }
+    public Score getSetScore(){
+        return setScoreExecutor.getScore();
     }
 
     public GameScoreByPlayerIndex getGameScoreByIndex(){
         return gameScoreExecutor.getScoreByPlayerIndex();
     }
+    public SetScoreByPlayerIndex getSetScoreByIndex(){
+        return setScoreExecutor.getScoreByPlayerIndex();
+    }
 
     public void startAPoint(){
-        checkSetIsStarted();
+        checkMatchIsReady();
         pointState = State.Started;
         getPlayers().forEach(a->a.setLostThePoint(false));
         this.pointWinner = null;
         log.debug("New Point started");
     }
     public void startASet(){
+        checkMatchIsReady();
         setState = State.Started;
         gameScoreExecutor.initTheScore();
         this.setWinner = null;
@@ -51,13 +61,29 @@ public class TennisGame {
         startAPoint();
     }
 
+    public void startAMatch(){
+        checkMatchIsReady();
+        setScoreExecutor.initTheScore();
+        matchState = State.Started;
+        matchWinner = null;
+        log.debug(model+" started");
+        startASet();
+    }
 
     public void checkSetIsStarted(){
         if(!State.Started.equals(setState))
             throw new SetNotStartedOrAlreadyTerminatedException("Set is not started or already terminated");
     }
 
+    public void checkMatchIsStarted(){
+        if(!State.Started.equals(matchState))
+            throw new RuntimeException("Match is not started or already terminated");
+    }
 
+    public void terminateMatch() {
+        matchState = State.Ended;
+        terminateSet();
+    }
     public void terminateSet() {
         setState = State.Ended;
         terminateGame();
@@ -70,6 +96,9 @@ public class TennisGame {
         pointState = State.Ended;
     }
 
+    public boolean isMatchStarted() {
+        return State.Started.equals(matchState);
+    }
     public boolean isSetStarted() {
         return State.Started.equals(setState);
     }
@@ -80,9 +109,17 @@ public class TennisGame {
         return State.Started.equals(pointState);
     }
 
+    protected void checkMatchIsReady(){
+        if(model.getPlayer1()==null || model.getPlayer2()==null) {
+            matchState = State.Default;
+            throw new RuntimeException("Game is not ready");
+        }
+    }
+
     public TennisGame(Game game) {
         this.model = game;
         this.gameScoreExecutor = new GameScoreExecutor(game.getGameScore());
+        this.setScoreExecutor = new SetScoreExecutor(game.getSetScore());
     }
 
     private Map<Player, AutoPlayer> getPlayersMap(){
@@ -96,6 +133,10 @@ public class TennisGame {
 
     public Game getModel() {
         return model;
+    }
+
+    public AutoPlayer getMatchWinner() {
+        return matchWinner;
     }
 
     public Player getSetWinner() {
@@ -113,7 +154,18 @@ public class TennisGame {
         if (gameScoreExecutor.playerHasWon()){
             setWinner = player;
             log.debug( player + " win the set" );
+            applySetScoreRules(player);
             terminateSet();
+        }
+    }
+
+    public void applySetScoreRules(Player pr){
+        AutoPlayer player = getPlayersMap().get(pr);
+        int index = getPlayers().indexOf(player);
+        setScoreExecutor.applyRules(index);
+        if (setScoreExecutor.playerHasWon()){
+            matchWinner = player;
+            log.debug( player + " win the match" );
         }
     }
 
