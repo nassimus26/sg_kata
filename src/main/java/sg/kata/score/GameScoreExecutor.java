@@ -40,7 +40,22 @@ public class GameScoreExecutor extends ScoreExecutor{
         int currentScore = scoreByPlayerIndex.getScore(playerIndex);
         int newScore = nextScore(currentScore);
         if (currentScore==40) {
-            setPlayerHasWon(true);
+            if (scoreByPlayerIndex.getScore(indexOfOtherPlayer)!=40){
+                setPlayerHasWon(true);
+            }
+            else if (scoreByPlayerIndex.isDeuce(playerIndex)) {
+                setPlayerHasWon(true);
+            }
+        }
+        if (currentScore == newScore) {
+            if (!scoreByPlayerIndex.isDeuce(indexOfOtherPlayer)) {
+                scoreByPlayerIndex.setDeuce(playerIndex, true);
+                scoreByPlayerIndex.setDeuce(indexOfOtherPlayer, false);
+                log.debug("Deuce Case " + scoreByPlayerIndex.getPlayer(playerIndex).getName() + " take the adventage");
+            }else{
+                scoreByPlayerIndex.setDeuce(indexOfOtherPlayer, false);
+                log.debug("Deuce Case " + scoreByPlayerIndex.getPlayer(indexOfOtherPlayer).getName() + " loose the adventage");
+            }
         }
         scoreByPlayerIndex.setScore(playerIndex, newScore);
         log.debug("New Game Score : "+scoreByPlayerIndex.getScore());
