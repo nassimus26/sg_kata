@@ -1,14 +1,11 @@
 package sg.kata.console;
 
-import sg.kata.game.TennisGame;
-import sg.kata.model.Game;
-import sg.kata.model.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sg.kata.model.Score;
-import sg.kata.model.GameScore;
-import sg.kata.score.byindex.ScoreByPlayerIndex;
+import sg.kata.game.TennisGame;
+import sg.kata.model.*;
 import sg.kata.score.byindex.GameScoreByPlayerIndex;
+import sg.kata.score.byindex.SetScoreByPlayerIndex;
 
 /**
  * Created by nassimus on 09/07/2016.
@@ -47,6 +44,9 @@ public abstract class TennisGameConsole {
     public void startTheSet(){
         game.startASet();
     }
+    public void startTheMatch(){
+        game.startAMatch();
+    }
 
     public Player getSetWinner(){
         return game.getSetWinner();
@@ -59,6 +59,24 @@ public abstract class TennisGameConsole {
         return game.getPlayers().get(looserIndex);
     }
 
+    public int getMatchWinnerScore(){
+        int winnerIndex = game.getPlayerIndex(getMatchWinner());
+        return game.getSetScoreByIndex().getScore(winnerIndex);
+    }
+
+    public int getMatchLooserScore(){
+        int winnerIndex = game.getPlayerIndex(getMatchLooser());
+        return game.getSetScoreByIndex().getScore(winnerIndex);
+    }
+
+    public Player getMatchWinner(){
+        return game.getMatchWinner();
+    }
+    public Player getMatchLooser(){
+        int winnerIndex = game.getPlayerIndex(getMatchWinner());
+        int looserIndex = 1 - winnerIndex;
+        return game.getPlayers().get(looserIndex);
+    }
     public int getSetWinnerScore(){
         int winnerIndex = game.getPlayerIndex(getSetWinner());
         return game.getGameScoreByIndex().getScore(winnerIndex);
@@ -77,12 +95,16 @@ public abstract class TennisGameConsole {
         return game.getModel();
     }
 
-    public Score getSetScore(){
-        return game.getGameScore();
+    public SetScore getSetScore(){
+        return (SetScore) game.getSetScore();
     }
 
     public GameScore getGameScore(){
         return game.getGameScore();
+    }
+
+    public SetScoreByPlayerIndex getSetSocreByIndex(){
+        return game.getSetScoreByIndex();
     }
 
     public GameScoreByPlayerIndex getGameScoreByIndex(){

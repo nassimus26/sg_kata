@@ -11,9 +11,11 @@ public class Game {
     private Player player2;
     private Date date = new Date();
     private GameScore gameScore = new GameScore();
+    private SetScore setScore = new SetScore();
 
     public Game(){
         gameScore.setGame(this);
+        setScore.setGame(this);
     }
 
     public Date getDate() {
@@ -22,6 +24,14 @@ public class Game {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public SetScore getSetScore() {
+        return setScore;
+    }
+
+    public void setSetScore(SetScore setScore) {
+        this.setScore = setScore;
     }
 
     public GameScore getGameScore() {
@@ -36,8 +46,8 @@ public class Game {
         if (index==0)
             this.gameScore.setScoreForPlayer1(score);
         else
-            if (index==1)
-                this.gameScore.setScoreForPlayer2(score);
+        if (index==1)
+            this.gameScore.setScoreForPlayer2(score);
         else throw new RuntimeException("Invalid index");
     }
 
@@ -60,7 +70,7 @@ public class Game {
     @Override
     public String toString() {
         return "Game{" +
-            //    "date=" + date +
+                //    "date=" + date +
                 ", player1=" + player1 +
                 ", player2=" + player2 +
                 ", setSetScore=" + gameScore +
