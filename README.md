@@ -1,7 +1,5 @@
 # sg_kata
-
 - Tennis Game Test support:
-
     - Human (manual) Game with the ability to directly force a selected player (by index) to win a point
     - Auto Game useful to show a random execution (print) :
         - Simul the Ball Exchange (Point) with :
@@ -15,19 +13,16 @@
     - The Score is always avalaible.    
     - The Winner of a Point, Game, a Set and A Match (6 points with +2 points) is accessible.
     - Check The Game (Ball Exchanges), Set, Match and the Game State (Default, Ready, Started, Ended)
-    - Allow players to join a game.
-    
+    - Allow players to join a game.    
 - Tennis Game (Nice to have):
     - Adding multi-threading support.
     - Handling Players leave the game
-    - GameConsole should be able to handle many matchs
-    
-- The projet requires JAVA8
+    - GameConsole should be able to handle many matchs    
 
 - Demonstrating GIT branching/merging worflow 
-
 ![alt tag](http://img4.hostingpics.net/pics/741144gitworkflow.jpg)
 
+- The projet requires JAVA8
 
 - Tennis Game
 - SPRINT1 : manage a tennis GAME within a set of a tennis match
