@@ -7,7 +7,7 @@
                 - From 1 to 5 is inside the stadium, the other player could sendBack if he generate a near INT.
                 - 1 or 6 is outside (player loose the point).
     - Handle the Deuce case and the loose of adventage.
-    - Handle the Round Winner (6 points with +2 points)
+    - Handle the Match Winner (6 points with +2 points)
     - Handle the Set and the Match score (point in the round not the number of round).
     - Tie-break should be implemented but not sure i understand what you mean by it.
     - The Score is always avalaible.    
