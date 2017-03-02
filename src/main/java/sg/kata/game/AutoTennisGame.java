@@ -45,4 +45,11 @@ public class AutoTennisGame extends TennisGame{
         }
     }
 
+    public void playAMatch() {
+        startAMatch();
+        while (getMatchWinner()==null) {
+            playASet();
+        }
+    }
+
 }
