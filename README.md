@@ -24,6 +24,10 @@
     
 - The projet requires JAVA8
 
+- Demonstrating GIT branching/merging worflow 
+
+![alt tag](http://img4.hostingpics.net/pics/741144gitworkflow.jpg)
+
 
 - Tennis Game
 - SPRINT1 : manage a tennis GAME within a set of a tennis match
