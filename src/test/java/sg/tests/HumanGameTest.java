@@ -72,6 +72,32 @@ public class HumanGameTest {
     }
 
     @Test
+    public void test6PointsVs5PointsCase(){// we need 6 points
+        int looserIndex = 1 - default_winner_player_index;
+        gameConsole.startTheMatch();
+        playAGame(looserIndex, false, 1, 0);
+        playAGame(looserIndex, false, 2, 0);
+        playAGame(looserIndex, false, 3, 0);
+        playAGame(looserIndex, false, 4, 0);
+        playAGame(looserIndex, false, 5, 0);
+
+        playAGame(default_winner_player_index, false, 1, 5);
+        playAGame(default_winner_player_index, false, 2, 5);
+        playAGame(default_winner_player_index, false, 3, 5);
+        playAGame(default_winner_player_index, false, 4, 5);
+        playAGame(default_winner_player_index, false, 5, 5);
+        playAGame(default_winner_player_index, false, 6, 5);
+
+        Assert.assertEquals(gameConsole.getMatchWinner(), null);// no winner
+        Assert.assertEquals(setScoreByPlayerIndex.getScore(looserIndex), 5);
+        Assert.assertEquals(setScoreByPlayerIndex.getScore(default_winner_player_index), 6);
+
+        playAGame(default_winner_player_index, false, 7, 5);
+        Assert.assertEquals(gameConsole.getMatchWinner(), setScoreByPlayerIndex.getPlayer(default_winner_player_index));
+
+    }
+
+    @Test
     public void testPointIncrementation(){
         gameConsole.startTheMatch();
         gameConsole.winAPoint(default_winner_player_index);
