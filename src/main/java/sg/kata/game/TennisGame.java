@@ -37,6 +37,7 @@ public class TennisGame {
     }
 
     public void startAPoint(){
+        checkSetIsStarted();
         pointState = State.Started;
         getPlayers().forEach(a->a.setLostThePoint(false));
         this.pointWinner = null;
@@ -49,6 +50,7 @@ public class TennisGame {
         log.debug("New set started");
         startAPoint();
     }
+
 
     public void checkSetIsStarted(){
         if(!State.Started.equals(setState))
@@ -77,7 +79,6 @@ public class TennisGame {
     public boolean isPointStarted() {
         return State.Started.equals(pointState);
     }
-
 
     public TennisGame(Game game) {
         this.model = game;
