@@ -50,14 +50,14 @@ public class TennisGame {
         pointState = State.Started;
         getPlayers().forEach(a->a.setLostThePoint(false));
         this.pointWinner = null;
-        log.debug("New Point started");
     }
     public void startASet(){
         checkMatchIsReady();
+        if (setState.equals(State.Default))
+            log.debug("New set started");
         setState = State.Started;
         gameScoreExecutor.initTheScore();
         this.setWinner = null;
-        log.debug("New set started");
         startAPoint();
     }
 
@@ -87,6 +87,7 @@ public class TennisGame {
     public void terminateSet() {
         setState = State.Ended;
         terminateGame();
+        log.debug("Set ended");
     }
     public void terminateGame() {
         gameState = State.Ended;
