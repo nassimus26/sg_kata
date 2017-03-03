@@ -53,7 +53,7 @@ public class TennisGame {
     }
     public void startASet(){
         checkMatchIsReady();
-        if (setState.equals(State.Default))
+        if (!setState.equals(State.Started))
             log.debug("New set started");
         setState = State.Started;
         gameScoreExecutor.initTheScore();
