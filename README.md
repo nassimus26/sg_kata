@@ -1,5 +1,5 @@
 # sg_kata
-- Tennis Game Test support:
+- Tennis Game Test supports:
     - Human (manual) Game with the ability to directly force a selected player (by index) to win a point
     - Auto Game useful to show a random execution (print) :
         - Simul the Ball Exchange (Point) with :
@@ -24,7 +24,6 @@
 
 - The projet requires JAVA8
 
-- Tennis Game
 - SPRINT1 : manage a tennis GAME within a set of a tennis match
 - User Story 1 :
                 As a tennis referee
