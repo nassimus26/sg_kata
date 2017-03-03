@@ -54,7 +54,7 @@ public class TennisGame {
     public void startASet(){
         checkMatchIsReady();
         if (!setState.equals(State.Started))
-            log.debug("New set started");
+            log.debug("New Set started");
         setState = State.Started;
         gameScoreExecutor.initTheScore();
         this.setWinner = null;
@@ -64,9 +64,11 @@ public class TennisGame {
     public void startAMatch(){
         checkMatchIsReady();
         setScoreExecutor.initTheScore();
+        if (!matchState.equals(State.Started))
+            log.debug( "New Match started");
         matchState = State.Started;
         matchWinner = null;
-        log.debug(model+" started");
+
         startASet();
     }
 
@@ -82,16 +84,14 @@ public class TennisGame {
 
     public void terminateMatch() {
         matchState = State.Ended;
-        terminateSet();
+        log.debug( "Match ended");
     }
     public void terminateSet() {
         setState = State.Ended;
-        terminateGame();
         log.debug("Set ended");
     }
     public void terminateGame() {
         gameState = State.Ended;
-        terminatePoint();
     }
     public void terminatePoint() {
         pointState = State.Ended;
@@ -155,8 +155,8 @@ public class TennisGame {
         if (gameScoreExecutor.playerHasWon()){
             setWinner = player;
             log.debug( player + " win the set" );
-            applySetScoreRules(player);
             terminateSet();
+            applySetScoreRules(player);
         }
     }
 
@@ -167,6 +167,7 @@ public class TennisGame {
         if (setScoreExecutor.playerHasWon()){
             matchWinner = player;
             log.debug( player + " win the match" );
+            terminateMatch();
         }
     }
 
