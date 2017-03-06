@@ -11,7 +11,7 @@
     - Handle the Deuce case and the loose of adventage.
     - Handle the Round Winner (6 points with +2 points)
     - Handle the Set and the Match score (point in the round not the number of round).
-    - Tie-break should be implemented but not sure i understand what you mean by it.
+    - Tie-break rules.
     - The Score is always avalaible.    
     - The Winner of a Point, Game, a Set and A Match (6 points with +2 points) is accessible.
     - Check The Game (Ball Exchanges), Set, Match and the Game State (Default, Ready, Started, Ended)
