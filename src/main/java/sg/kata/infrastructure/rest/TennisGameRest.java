@@ -13,9 +13,9 @@ public class TennisGameRest {
     @Autowired
     TennisGameService gameService;
 
-    @GetMapping(value = "/winThePoint/{player}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String winThePoint(@PathVariable String player) {
-        gameService.winThePoint(player);
+    @GetMapping(value = "/winPoint/{player}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String winPoint(@PathVariable String player) {
+        gameService.winPoint(player);
         return gameService.getGame().serialize();
     }
 

@@ -3,21 +3,25 @@ package sg.kata.infrastructure.services;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sg.kata.domain.model.IGame;
+import sg.kata.domain.model.IGameEngine;
 import sg.kata.domain.model.Player;
 
 @Service
 @RequiredArgsConstructor
 public class TennisGameService {
     @Getter
-    private final IGame game;
+    private final IGameEngine game;
 
     public void joinTheGame(String name){
         game.join(new Player(name));
     }
 
-    public void resetGame() {
-        game.reset();
+    public void startMatch() {
+        game.startMatch();
+    }
+
+    public void clearPlayers() {
+        game.clearPlayers();
     }
 
     public Player getPointWinner() {
@@ -44,8 +48,8 @@ public class TennisGameService {
         return game.isPlayerDeuce(name);
     }
 
-    public void winThePoint(String name) {
-        game.winThePoint(name);
+    public void winPoint(String name) {
+        game.winPoint(name);
     }
 
     public String getOpponentName(String name) {

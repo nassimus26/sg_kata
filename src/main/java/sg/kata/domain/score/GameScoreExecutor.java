@@ -1,7 +1,7 @@
 package sg.kata.domain.score;
 
 import lombok.extern.slf4j.Slf4j;
-import sg.kata.domain.model.IGame;
+import sg.kata.domain.model.IGameEngine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 public class GameScoreExecutor extends ScoreExecutor {
 
-    public GameScoreExecutor(IGame game){
+    public GameScoreExecutor(IGameEngine game){
         super( game );
     }
 

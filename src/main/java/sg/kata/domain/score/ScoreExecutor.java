@@ -2,7 +2,7 @@ package sg.kata.domain.score;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import sg.kata.domain.model.IGame;
+import sg.kata.domain.model.IGameEngine;
 
 /**
  * Created by Nassim MOUALEK on 31/08/2018.
@@ -10,7 +10,7 @@ import sg.kata.domain.model.IGame;
 @RequiredArgsConstructor
 abstract class ScoreExecutor {
     @NonNull
-    protected IGame game;
+    protected IGameEngine game;
 
     public abstract void applyRules(String name);
 
